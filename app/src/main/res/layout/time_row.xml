@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <variable
+            name="lang"
+            type="String" />
+
+        <variable
+            name="model"
+            type="com.clinc.models.TimeModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable='@{model.state==0?true:false}'
+        android:focusable='@{model.state==0?true:false}'
+android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            date="@{model.time_name}"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/white"
+            android:clickable='@{model.state==0?true:false}'
+            android:focusable='@{model.state==0?true:false}'
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="3dp"
+
+            android:singleLine="true"
+            android:textColor='@{model.state==0?@color/colorPrimary:@color/gray0}'
+            android:textSize="13sp"
+
+            />
+
+        <TextView
+            date2="@{model.time_name}"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:clickable='@{model.state==0?true:false}'
+            android:focusable='@{model.state==0?true:false}'
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="3dp"
+            android:singleLine="true"
+            android:textColor='@{model.state==0?@color/colorPrimary:@color/gray0}'
+            android:textSize="13sp"
+
+            />
+
+    </LinearLayout>
+
+
+</layout>

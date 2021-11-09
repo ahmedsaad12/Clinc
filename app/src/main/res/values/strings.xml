@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Clinc</string>
+    <string name="login">Login</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="login2">Login</string>
+    <string name="ask_doctor">Ask Doctor</string>
+    <string name="type_amessage">Type Message</string>
+    <string name="notifications">Notifications</string>
+    <string name="no_data_to_show">No Data To Show</string>
+    <string name="instructions">Instructions</string>
+    <string name="field_req">Field Required</string>
+    <string name="wait">Wait</string>
+    <string name="clinic_system">Clinic System</string>
+    <string name="book_appoinment">Book Appoinment</string>
+    <string name="incorrect_user">Incorrect Name  Or Pass</string>
+    <string name="choose_the_right_day">Choose the right day</string>
+    <string name="name">Name</string>
+    <string name="history">History</string>
+</resources>
