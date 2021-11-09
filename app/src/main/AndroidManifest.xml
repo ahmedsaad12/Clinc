@@ -26,7 +26,10 @@
         android:requestLegacyExternalStorage="true"
 
         tools:targetApi="q">
-
+        <activity
+            android:name=".activities_fragments.activity_detials.InstructionsetialsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".activities_fragments.activity_instructions.InstructionsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
