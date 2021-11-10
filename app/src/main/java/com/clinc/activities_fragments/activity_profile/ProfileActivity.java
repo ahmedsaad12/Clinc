@@ -1,39 +1,29 @@
 package com.clinc.activities_fragments.activity_profile;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.clinc.R;
-import com.clinc.adapters.DateAdapter;
-import com.clinc.databinding.ActivityClinicSystemBinding;
+import com.clinc.adapters.TratmentAdapter;
 import com.clinc.databinding.ActivityProfileBinding;
-import com.clinc.databinding.DialogDateBinding;
-import com.clinc.databinding.DialogLoginBinding;
 import com.clinc.interfaces.Listeners;
 import com.clinc.language.Language;
-import com.clinc.models.SystemModel;
+import com.clinc.models.ProfileModel;
 import com.clinc.models.UserModel;
 import com.clinc.preferences.Preferences;
 import com.clinc.remote.Api;
 import com.clinc.share.Common;
 import com.clinc.tags.Tags;
+import com.google.gson.internal.bind.TreeTypeAdapter;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +37,8 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
     private String lang;
     private Preferences preferences;
     private UserModel userModel;
-
+    private List<ProfileModel> profileModelList;
+    private TratmentAdapter tratmentAdapter;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -61,13 +52,16 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         initView();
-        getsytem();
+        getProfile();
 
     }
 
     private void initView() {
 
-
+        profileModelList = new ArrayList<>();
+        tratmentAdapter = new TratmentAdapter(this, profileModelList);
+        binding.recView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recView.setAdapter(tratmentAdapter);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         Paper.init(this);
@@ -84,20 +78,20 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
     }
 
 
-    private void getsytem() {
+    private void getProfile() {
         final Dialog dialog = Common.createProgressDialog(ProfileActivity.this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
 
         try {
             Api.getService(Tags.base_url)
-                    .getSystem().enqueue(new Callback<List<SystemModel>>() {
+                    .getProfile(userModel.getId() + "").enqueue(new Callback<List<ProfileModel>>() {
                 @Override
-                public void onResponse(Call<List<SystemModel>> call, Response<List<SystemModel>> response) {
+                public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
                     dialog.dismiss();
                     if (response.isSuccessful()) {
 
-                        binding.setModel(response.body().get(0));
+                        update(response.body());
                     } else {
                         try {
 
@@ -111,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
                 }
 
                 @Override
-                public void onFailure(Call<List<SystemModel>> call, Throwable t) {
+                public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
                     dialog.dismiss();
                     try {
                         // Toast.makeText(ChatActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
@@ -125,6 +119,13 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
             dialog.dismiss();
             Log.e("error", e.getMessage().toString());
         }
+    }
+
+    private void update(List<ProfileModel> body) {
+        binding.setModel(body.get(0));
+        profileModelList.clear();
+        profileModelList.addAll(body);
+        tratmentAdapter.notifyDataSetChanged();
     }
 
 

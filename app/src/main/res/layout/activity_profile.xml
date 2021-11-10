@@ -11,7 +11,7 @@
             type="String" />
         <variable
             name="model"
-            type="com.clinc.models.SystemModel" />
+            type="com.clinc.models.ProfileModel" />
     </data>
 
     <FrameLayout
@@ -109,7 +109,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text="@{model.name}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -135,7 +135,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text='@{model.age+""}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -161,7 +161,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text='@{model.id+""}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -187,7 +187,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text='@{model.birth_date.split("T")[0]}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -224,7 +224,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text="@{model.date}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -250,7 +250,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text="@{model.reservation_time}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -276,7 +276,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text="@{model.time}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -302,7 +302,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text="@{model.enter_time}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -328,7 +328,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text="@{model.waiting2}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -354,7 +354,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text='@{model.height+""}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -380,7 +380,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text='@{model.wieght+""}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -406,7 +406,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/profile"
+                android:text='@{model.head_cm+""}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>

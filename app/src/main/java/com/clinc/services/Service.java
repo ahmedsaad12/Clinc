@@ -3,6 +3,7 @@ package com.clinc.services;
 
 import com.clinc.models.InstructionsModel;
 import com.clinc.models.MessageModel;
+import com.clinc.models.ProfileModel;
 import com.clinc.models.SystemModel;
 import com.clinc.models.TimeModel;
 import com.clinc.models.UserModel;
@@ -79,6 +80,13 @@ public interface Service {
     Call<List<InstructionsModel>> getinstruction
             (
 
+
+//
+            );
+    @GET("/assistant/get_profile.asmx/get_info")
+    Call<List<ProfileModel>> getProfile
+            (
+                    @Query("file_id") String file_id
 
 //
             );
