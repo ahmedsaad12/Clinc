@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.clinc.R;
+import com.clinc.activities_fragments.activity_home.HomeActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.DateAdapter;
 import com.clinc.adapters.TimeAdapter;
@@ -110,6 +111,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         datelist.add(dateFormat.format(new Date(calendar.getTimeInMillis())));
         getDate(date);
+
 
     }
 
@@ -250,6 +252,71 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
             Log.e("error", e.getMessage().toString());
         }
     }
+    private void login(String name, String pass) {
 
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .login(name, pass)
+                .enqueue(new Callback<List<UserModel>>() {
+                    @Override
+                    public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
+                        dialog.dismiss();
+//                        Log.e("rriir",response.body().getStatus()+"");
+                        if (response.isSuccessful()) {
+
+                            update(response.body(), name, pass);
+
+
+                        } else {
+                            Toast.makeText(TimesActivity.this, getResources().getString(R.string.incorrect_user), Toast.LENGTH_LONG).show();
+
+                            try {
+                                Log.e("mmmmmmmmmm", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if (response.code() == 500) {
+                                // Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e("mmmmmmmmmm", response.code() + "");
+
+                                // Toast.makeText(LoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<UserModel>> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.toString() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    //  Toast.makeText(LoginActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    //    Toast.makeText(LoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+
+    }
+
+    private void update(List<UserModel> body, String name, String pass) {
+        UserModel userModel = body.get(0);
+        userModel.setUser_name(name);
+        userModel.setPass(pass);
+        preferences.create_update_userdata(TimesActivity.this, userModel);
+        preferences.create_update_session(TimesActivity.this, Tags.session_login);
+        // navigateToHomeActivity();
+    }
 
 }
