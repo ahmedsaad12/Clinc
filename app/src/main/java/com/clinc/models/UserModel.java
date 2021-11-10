@@ -31,4 +31,8 @@ public class UserModel implements Serializable {
     public void setPass(String pass) {
         this.pass = pass;
     }
+
+    public UserModel(String name) {
+        this.name = name;
+    }
 }

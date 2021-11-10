@@ -18,4 +18,21 @@
     <string name="choose_the_right_day">Choose the right day</string>
     <string name="name">Name</string>
     <string name="history">History</string>
+    <string name="ch">Choose USer</string>
+    <string name="profile">Profile</string>
+    <string name="basic_information">basic information</string>
+    <string name="age">Age</string>
+    <string name="filenumber">FileNumber</string>
+    <string name="birthday">BirthDay</string>
+    <string name="last_clinic_visit">Last Clinic Visit</string>
+    <string name="booking_time">Booking Time</string>
+    <string name="entering_the_clinic">Entering the clinic</string>
+    <string name="entering_the_doctor">Entering the doctor</string>
+    <string name="waiting_time">ًWaiting Time</string>
+    <string name="hight">Hight</string>
+    <string name="weight">Weight</string>
+    <string name="head_circumference">Head circumference</string>
+    <string name="prescribe_the_treatment">Prescribe the treatment</string>
+    <string name="medicament_name">medicament name</string>
+    <string name="dose">dose</string>
 </resources>

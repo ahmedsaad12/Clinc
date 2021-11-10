@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.clinc.R;
 import com.clinc.activities_fragments.activity_home.HomeActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.DateAdapter;
+import com.clinc.adapters.SpinnerAdapter;
 import com.clinc.adapters.TimeAdapter;
 import com.clinc.databinding.ActivityClinicSystemBinding;
 import com.clinc.databinding.ActivityTimesBinding;
@@ -60,6 +62,8 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     private String date;
     private List<TimeModel> timeModels;
     private TimeAdapter timeAdapter;
+    private SpinnerAdapter spinnerAdapter;
+    private List<UserModel> countryModelList;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -78,10 +82,12 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     }
 
     private void initView() {
+        countryModelList = new ArrayList<>();
+
         datelist = new ArrayList<>();
         timeModels = new ArrayList<>();
         adapter = new DateAdapter(this, datelist);
-        timeAdapter=new TimeAdapter(this,timeModels);
+        timeAdapter = new TimeAdapter(this, timeModels);
         calendar = Calendar.getInstance();
 
         preferences = Preferences.getInstance();
@@ -96,7 +102,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
                 back();
             }
         });
-        binding.recView.setLayoutManager(new GridLayoutManager(this,3));
+        binding.recView.setLayoutManager(new GridLayoutManager(this, 3));
         binding.recView.setAdapter(timeAdapter);
         binding.imageeddit.setOnClickListener(view -> {
             CreateDateAlertDialogs(this);
@@ -111,8 +117,30 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         datelist.add(dateFormat.format(new Date(calendar.getTimeInMillis())));
         getDate(date);
+        spinnerAdapter = new SpinnerAdapter(countryModelList, this);
+        login(userModel.getUser_name(), userModel.getPass());
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i>0){
+               update(i);
+            }}
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+    }
+
+    private void update(int i) {
+       UserModel  userModel = countryModelList.get(i);
+        userModel.setUser_name(this.userModel.getUser_name());
+        userModel.setPass(this.userModel.getPass());
+        this.userModel=userModel;
+        preferences.create_update_userdata(TimesActivity.this, userModel);
+        preferences.create_update_session(TimesActivity.this, Tags.session_login);
     }
 
     public void CreateDateAlertDialogs(Context context) {
@@ -217,7 +245,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
         try {
             Api.getService(Tags.base_url)
-                    .book("9",userModel.getUser_name() + "",  userModel.getPass(), timeModel.getTime_name(),date ).enqueue(new Callback<ResponseBody>() {
+                    .book("9", userModel.getUser_name() + "", userModel.getPass(), timeModel.getTime_name(), date).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     dialog.dismiss();
@@ -252,6 +280,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
             Log.e("error", e.getMessage().toString());
         }
     }
+
     private void login(String name, String pass) {
 
         ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
@@ -266,7 +295,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 //                        Log.e("rriir",response.body().getStatus()+"");
                         if (response.isSuccessful()) {
 
-                            update(response.body(), name, pass);
+                            update(response.body());
 
 
                         } else {
@@ -310,12 +339,12 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
     }
 
-    private void update(List<UserModel> body, String name, String pass) {
-        UserModel userModel = body.get(0);
-        userModel.setUser_name(name);
-        userModel.setPass(pass);
-        preferences.create_update_userdata(TimesActivity.this, userModel);
-        preferences.create_update_session(TimesActivity.this, Tags.session_login);
+    private void update(List<UserModel> body) {
+      countryModelList.clear();
+      countryModelList.add(new UserModel(getString(R.string.ch)));
+      countryModelList.addAll(body);
+      spinnerAdapter.notifyDataSetChanged();
+      binding.spinner.setAdapter(spinnerAdapter);
         // navigateToHomeActivity();
     }
 
