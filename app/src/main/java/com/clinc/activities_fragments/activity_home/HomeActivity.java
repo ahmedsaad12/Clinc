@@ -38,6 +38,7 @@ import com.clinc.R;
 import com.clinc.activities_fragments.activity_clinic_system.SystemClinicActivity;
 import com.clinc.activities_fragments.activity_instructions.InstructionsActivity;
 import com.clinc.activities_fragments.activity_notifications.NotificationsActivity;
+import com.clinc.activities_fragments.activity_profile.ProfileActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.DateAdapter;
 import com.clinc.databinding.ActivityHomeBinding;
@@ -125,6 +126,15 @@ public class HomeActivity extends AppCompatActivity {
         binding.imagechat.setOnClickListener(view -> {
             if (userModel != null) {
                 Intent intent = new Intent(this, ChatActivity.class);
+                startActivity(intent);
+            } else {
+                CreateNoSignAlertDialogs(this);
+            }
+
+        });
+        binding.imageprofile.setOnClickListener(view -> {
+            if (userModel != null) {
+                Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
             } else {
                 CreateNoSignAlertDialogs(this);
