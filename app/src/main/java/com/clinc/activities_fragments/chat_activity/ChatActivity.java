@@ -100,7 +100,7 @@ public class ChatActivity extends AppCompatActivity implements Listeners.BackLis
         binding.setLang(lang);
 
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        binding.recView.setLayoutManager(manager);
+        binding.recView.setLayoutManager(new LinearLayoutManager(this));
         chat_adapter = new Chat_Adapter(messagedatalist, this);
         binding.recView.setItemViewCacheSize(25);
         binding.recView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -115,7 +115,12 @@ public class ChatActivity extends AppCompatActivity implements Listeners.BackLis
                 checkdata();
             }
         });
-
+binding.llBack.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        finish();
+    }
+});
 
     }
 
@@ -165,8 +170,7 @@ public class ChatActivity extends AppCompatActivity implements Listeners.BackLis
                                 messagedatalist.addAll(response.body());
                                 if (response.body().size() > 0) {
                                     // rec_sent.setVisibility(View.VISIBLE);
-                                    Log.e("data", response.body().size()
-                                            + "");
+
 
                                     // binding.llMsgContainer.setVisibility(View.GONE);
                                     chat_adapter.notifyDataSetChanged();

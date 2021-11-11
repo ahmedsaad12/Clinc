@@ -5,14 +5,14 @@ import java.io.Serializable;
 public class InstructionsModel implements Serializable {
    private int id;
    private String title;
-   private String content;
-private String imageURL;
+   private String name;
+private String image_url;
     public int getId() {
         return id;
     }
 
     public String getContent() {
-        return content;
+        return name;
     }
 
     public String getTitle() {
@@ -20,6 +20,6 @@ private String imageURL;
     }
 
     public String getImageURL() {
-        return imageURL;
+        return image_url;
     }
 }

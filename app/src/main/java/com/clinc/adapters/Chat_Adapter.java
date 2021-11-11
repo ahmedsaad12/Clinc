@@ -121,7 +121,7 @@ private ChatActivity activity;
     public int getItemViewType(int position) {
         MessageModel messageModel = messageModelList.get(position);
 
-        if (messageModel.getCheck_sender().equals("patient")) {
+        if (!messageModel.getCheck_sender().equals("patient")) {
                 return ITEM_MESSAGE_LEFT;
 
         }

@@ -74,7 +74,7 @@ public class NotificationsActivity extends AppCompatActivity implements Listener
                 back();
             }
         });
-        binding.recView.setLayoutManager(new GridLayoutManager(this,3));
+        binding.recView.setLayoutManager(new GridLayoutManager(this,1));
         binding.recView.setAdapter(notificationAdapter);
 
         getData();

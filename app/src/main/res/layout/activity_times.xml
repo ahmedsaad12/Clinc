@@ -67,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/notifications"
+                        android:text="@string/book_appoinment"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
                 </androidx.appcompat.widget.Toolbar>
@@ -112,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/name"
+                            android:text="@{model.name}"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -168,7 +168,7 @@
                             android:layout_height="24dp"
                             android:layout_gravity="center"
                             android:padding="3dp"
-                            android:src="@drawable/ic_arrow_left"
+                            android:src="@drawable/edit"
                             app:tint="@color/white" />
                     </LinearLayout>
 

@@ -76,7 +76,7 @@ public interface Service {
 
 //
             );
-    @GET("/settings/articles_service.asmx/get_one_article")
+    @GET("/settings/articles_service.asmx/get_all_articles")
     Call<List<InstructionsModel>> getinstruction
             (
 

@@ -31,8 +31,7 @@ android:gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginRight="3dp"
             android:background="@color/white"
-            android:clickable='@{model.state==0?true:false}'
-            android:focusable='@{model.state==0?true:false}'
+
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
@@ -40,7 +39,7 @@ android:gravity="center"
             android:paddingBottom="3dp"
 
             android:singleLine="true"
-            android:textColor='@{model.state==0?@color/colorPrimary:@color/gray0}'
+            android:textColor='@{model.state==0?@color/colorPrimary:@color/gray4}'
             android:textSize="13sp"
 
             />
@@ -53,15 +52,14 @@ android:gravity="center"
             android:layout_marginRight="3dp"
             android:layout_marginBottom="5dp"
             android:background="@color/white"
-            android:clickable='@{model.state==0?true:false}'
-            android:focusable='@{model.state==0?true:false}'
+
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
             android:paddingRight="5dp"
             android:paddingBottom="3dp"
             android:singleLine="true"
-            android:textColor='@{model.state==0?@color/colorPrimary:@color/gray0}'
+            android:textColor='@{model.state==0?@color/colorPrimary:@color/gray4}'
             android:textSize="13sp"
 
             />

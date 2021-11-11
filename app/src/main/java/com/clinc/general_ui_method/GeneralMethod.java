@@ -93,7 +93,7 @@ public class GeneralMethod {
     public static void date(TextView view, String date) {
         if (date!=null&&!date.isEmpty()){
             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH);
-            SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh:mm ", Locale.getDefault());
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh:mm", Locale.getDefault());
 
             try {
                 Date date1=dateFormat.parse(date);

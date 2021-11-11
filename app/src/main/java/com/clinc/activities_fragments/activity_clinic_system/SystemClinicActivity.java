@@ -20,6 +20,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.clinc.R;
+import com.clinc.activities_fragments.activity_home.HomeActivity;
+import com.clinc.activities_fragments.activity_times.TimesActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.Chat_Adapter;
 import com.clinc.adapters.DateAdapter;
@@ -58,6 +60,7 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
     private Calendar calendar;
     private List<String> datelist;
     private DateAdapter adapter;
+    private AlertDialog dialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -110,7 +113,7 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
     }
 
     public void CreateDateAlertDialogs(Context context) {
-        final AlertDialog dialog = new AlertDialog.Builder(context)
+      dialog = new AlertDialog.Builder(context)
                 .create();
 
         DialogDateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_date, null, false);
@@ -148,6 +151,7 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
 
                     binding.edtPass.setError(null);
                     login(name, pass);
+                    dialog.dismiss();
 
                 } else {
                     if (name.isEmpty()) {
@@ -232,6 +236,7 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
+        this.userModel=userModel;
         preferences.create_update_userdata(SystemClinicActivity.this, userModel);
         preferences.create_update_session(SystemClinicActivity.this, Tags.session_login);
         // navigateToSystemClinicActivity();
@@ -285,6 +290,13 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
     public void back() {
         finish();
     }
-
+    public void book(String s) {
+        if(dialog!=null){
+            dialog.dismiss();
+        }
+        Intent intent=new Intent(SystemClinicActivity.this, TimesActivity.class);
+        intent.putExtra("date",s);
+        startActivity(intent);
+    }
 
 }

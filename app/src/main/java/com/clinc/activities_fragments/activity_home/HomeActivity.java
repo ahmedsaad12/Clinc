@@ -39,6 +39,7 @@ import com.clinc.activities_fragments.activity_clinic_system.SystemClinicActivit
 import com.clinc.activities_fragments.activity_instructions.InstructionsActivity;
 import com.clinc.activities_fragments.activity_notifications.NotificationsActivity;
 import com.clinc.activities_fragments.activity_profile.ProfileActivity;
+import com.clinc.activities_fragments.activity_times.TimesActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.DateAdapter;
 import com.clinc.databinding.ActivityHomeBinding;
@@ -96,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
     private Calendar calendar;
     private List<String> datelist;
     private DateAdapter adapter;
+    private AlertDialog dialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -225,7 +227,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void CreateDateAlertDialogs(Context context) {
-        final AlertDialog dialog = new AlertDialog.Builder(context)
+         dialog = new AlertDialog.Builder(context)
                 .create();
 
         DialogDateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_date, null, false);
@@ -301,10 +303,20 @@ public class HomeActivity extends AppCompatActivity {
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
+        this.userModel=userModel;
+
         preferences.create_update_userdata(HomeActivity.this, userModel);
         preferences.create_update_session(HomeActivity.this, Tags.session_login);
         // navigateToHomeActivity();
     }
 
 
+    public void book(String s) {
+        if(dialog!=null){
+            dialog.dismiss();
+        }
+        Intent intent=new Intent(HomeActivity.this, TimesActivity.class);
+        intent.putExtra("date",s);
+        startActivity(intent);
+    }
 }

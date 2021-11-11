@@ -209,9 +209,10 @@ android:text="@string/basic_information"
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
             >
+
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:text="@string/history"
                 android:textColor="@color/colorAccent"
@@ -224,7 +225,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{model.date}"
+                android:text='@{model.date.split("T")[0]}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -328,7 +329,7 @@ android:text="@string/basic_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{model.waiting2}"
+                android:text='@{model.waiting2+""}'
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>

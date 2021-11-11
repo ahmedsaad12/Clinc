@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.text.Html"/>
         <variable
             name="model"
             type="com.clinc.models.InstructionsModel" />
@@ -102,7 +102,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:maxLines="1"
-            android:text="@{model.content}"
+            android:text="@{Html.fromHtml(model.content)}"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             />

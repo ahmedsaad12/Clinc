@@ -15,7 +15,7 @@ public class ProfileModel implements Serializable {
     private double wieght;
     private double height;
     private double head_cm;
-    private Date birth_date;
+    private String birth_date;
     private String treatment;
     private String visit_type;
     private String dosage;
@@ -68,7 +68,7 @@ public class ProfileModel implements Serializable {
         return head_cm;
     }
 
-    public Date getBirth_date() {
+    public String getBirth_date() {
         return birth_date;
     }
 

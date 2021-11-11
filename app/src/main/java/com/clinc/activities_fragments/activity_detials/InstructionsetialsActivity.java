@@ -65,6 +65,7 @@ public class InstructionsetialsActivity extends AppCompatActivity implements Lis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_instructios_detials);
+       getDataFromIntent();
         initView();
 
     }
@@ -205,6 +206,8 @@ public class InstructionsetialsActivity extends AppCompatActivity implements Lis
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
+        this.userModel=userModel;
+
         preferences.create_update_userdata(InstructionsetialsActivity.this, userModel);
         preferences.create_update_session(InstructionsetialsActivity.this, Tags.session_login);
         // navigateToInstructionsActivity();

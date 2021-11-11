@@ -78,7 +78,7 @@ public class InstructionsActivity extends AppCompatActivity implements Listeners
                 back();
             }
         });
-        binding.recView.setLayoutManager(new GridLayoutManager(this,3));
+        binding.recView.setLayoutManager(new GridLayoutManager(this,1));
         binding.recView.setAdapter(instructionAdapter);
         binding.btnAsk.setOnClickListener(view -> {
             if (userModel != null) {
@@ -201,6 +201,8 @@ public class InstructionsActivity extends AppCompatActivity implements Listeners
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
+        this.userModel=userModel;
+
         preferences.create_update_userdata(InstructionsActivity.this, userModel);
         preferences.create_update_session(InstructionsActivity.this, Tags.session_login);
         // navigateToInstructionsActivity();

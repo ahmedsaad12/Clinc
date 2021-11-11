@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.clinc.R;
+import com.clinc.activities_fragments.activity_clinic_system.SystemClinicActivity;
 import com.clinc.activities_fragments.activity_home.HomeActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.DateAdapter;
@@ -64,6 +65,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     private TimeAdapter timeAdapter;
     private SpinnerAdapter spinnerAdapter;
     private List<UserModel> countryModelList;
+    private AlertDialog dialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -96,6 +98,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
         binding.setDate(date);
+        binding.setModel(userModel);
         binding.flBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,12 +142,13 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         userModel.setUser_name(this.userModel.getUser_name());
         userModel.setPass(this.userModel.getPass());
         this.userModel=userModel;
+        binding.setModel(userModel);
         preferences.create_update_userdata(TimesActivity.this, userModel);
         preferences.create_update_session(TimesActivity.this, Tags.session_login);
     }
 
     public void CreateDateAlertDialogs(Context context) {
-        final AlertDialog dialog = new AlertDialog.Builder(context)
+         dialog = new AlertDialog.Builder(context)
                 .create();
 
         DialogDateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_date, null, false);
@@ -167,7 +171,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
         }
     }
-
+  
     private void getDate(String date) {
         timeModels.clear();
         timeAdapter.notifyDataSetChanged();
@@ -348,4 +352,11 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         // navigateToHomeActivity();
     }
 
+    public void setdate(String s) {
+        if(dialog!=null){
+            dialog.dismiss();
+        }
+        date=s;
+        getDate(date);
+    }
 }
