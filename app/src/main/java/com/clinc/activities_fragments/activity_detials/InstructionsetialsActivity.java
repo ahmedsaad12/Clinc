@@ -203,6 +203,7 @@ public class InstructionsetialsActivity extends AppCompatActivity implements Lis
     }
 
     private void update(List<UserModel> body, String name, String pass) {
+        if(body.size()>0){
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
@@ -211,7 +212,7 @@ public class InstructionsetialsActivity extends AppCompatActivity implements Lis
         preferences.create_update_userdata(InstructionsetialsActivity.this, userModel);
         preferences.create_update_session(InstructionsetialsActivity.this, Tags.session_login);
         // navigateToInstructionsActivity();
-    }
+    }}
 
 
 

@@ -363,6 +363,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void update(List<UserModel> body, String name, String pass) {
+        if(body.size()>0){
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
@@ -371,7 +372,7 @@ public class HomeActivity extends AppCompatActivity {
         preferences.create_update_userdata(HomeActivity.this, userModel);
         preferences.create_update_session(HomeActivity.this, Tags.session_login);
         // navigateToHomeActivity();
-    }
+    }}
 
 
     public void book(String s) {
@@ -381,5 +382,13 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent=new Intent(HomeActivity.this, TimesActivity.class);
         intent.putExtra("date",s);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(preferences!=null){
+            userModel=preferences.getUserData(this);
+        }
     }
 }

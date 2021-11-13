@@ -198,6 +198,7 @@ public class InstructionsActivity extends AppCompatActivity implements Listeners
     }
 
     private void update(List<UserModel> body, String name, String pass) {
+        if(body.size()>0){
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
@@ -206,7 +207,7 @@ public class InstructionsActivity extends AppCompatActivity implements Listeners
         preferences.create_update_userdata(InstructionsActivity.this, userModel);
         preferences.create_update_session(InstructionsActivity.this, Tags.session_login);
         // navigateToInstructionsActivity();
-    }
+    }}
 
 
     private void getData() {

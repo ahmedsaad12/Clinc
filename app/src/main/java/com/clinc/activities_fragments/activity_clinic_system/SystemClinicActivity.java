@@ -233,6 +233,7 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
     }
 
     private void update(List<UserModel> body, String name, String pass) {
+        if(body.size()>0){
         UserModel userModel = body.get(0);
         userModel.setUser_name(name);
         userModel.setPass(pass);
@@ -240,7 +241,7 @@ public class SystemClinicActivity extends AppCompatActivity implements Listeners
         preferences.create_update_userdata(SystemClinicActivity.this, userModel);
         preferences.create_update_session(SystemClinicActivity.this, Tags.session_login);
         // navigateToSystemClinicActivity();
-    }
+    }}
 
     private void getsytem() {
         final Dialog dialog = Common.createProgressDialog(SystemClinicActivity.this, getString(R.string.wait));

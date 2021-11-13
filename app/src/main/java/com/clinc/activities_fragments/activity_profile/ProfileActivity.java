@@ -122,11 +122,12 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
     }
 
     private void update(List<ProfileModel> body) {
+        if(body.size()>0){
         binding.setModel(body.get(0));
         profileModelList.clear();
         profileModelList.addAll(body);
         tratmentAdapter.notifyDataSetChanged();
-    }
+    }}
 
 
     @Override
