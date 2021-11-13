@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -98,7 +100,8 @@ public class HomeActivity extends AppCompatActivity {
     private List<String> datelist;
     private DateAdapter adapter;
     private AlertDialog dialog;
-
+    Intent intent;
+    private static final int REQUEST_PHONE_CALL = 1;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -106,7 +109,52 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void call(String phone){
 
+        intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+
+
+        if (intent != null) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+                } else {
+                    startActivity(intent);
+                }
+            } else {
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PHONE_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    Activity#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for Activity#requestPermissions for more details.
+                            return;
+                        }
+                    }
+                    startActivity(intent);
+                } else {
+
+                }
+                return;
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,6 +217,21 @@ public class HomeActivity extends AppCompatActivity {
             }
 
         });
+        binding.llLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 30.00030, 31.16305);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+               startActivity(intent);
+            }
+        });
+        binding.llphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                call("+201111148585");
+            }
+        });
+
         calendar.setTimeInMillis(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         datelist.add(dateFormat.format(new Date(calendar.getTimeInMillis())));
