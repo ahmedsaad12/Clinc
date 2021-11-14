@@ -345,7 +345,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
     private void update(List<UserModel> body) {
       countryModelList.clear();
-      countryModelList.add(new UserModel(getString(R.string.ch)));
+      countryModelList.add(new UserModel(""));
       countryModelList.addAll(body);
       spinnerAdapter.notifyDataSetChanged();
       binding.spinner.setAdapter(spinnerAdapter);

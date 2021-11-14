@@ -26,7 +26,8 @@
             android:gravity="center"
             android:text="@string/choose_the_right_day"
             android:textColor="@color/colorred"
-            android:textSize="15sp" />
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recViewDate"

@@ -220,9 +220,12 @@ public class HomeActivity extends AppCompatActivity {
         binding.llLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 30.00030, 31.16305);
+                String uri = "http://maps.google.com/maps?q=loc:"+" 30.0002997,31.1652372";
+
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-               startActivity(intent);
+                intent.setPackage("com.google.android.apps.maps");
+
+                startActivity(intent);
             }
         });
         binding.llphone.setOnClickListener(new View.OnClickListener() {
