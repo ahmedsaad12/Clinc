@@ -191,6 +191,14 @@ public class HomeActivity extends AppCompatActivity {
             }
 
         });
+        binding.imLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences.clear(HomeActivity.this);
+                userModel=preferences.getUserData(HomeActivity.this);
+                Toast.makeText(HomeActivity.this,"تم تسجيل الخروج",Toast.LENGTH_LONG).show();
+            }
+        });
         binding.imageInstr.setOnClickListener(view -> {
             Intent intent = new Intent(this, InstructionsActivity.class);
             startActivity(intent);

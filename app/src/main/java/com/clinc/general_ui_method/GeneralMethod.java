@@ -104,7 +104,21 @@ public class GeneralMethod {
         }
 
     }
+    @BindingAdapter("date3")
+    public static void date3(TextView view, String date) {
+        if (date!=null&&!date.isEmpty()){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH);
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
 
+            try {
+                Date date1=dateFormat.parse(date);
+                view.setText(dateFormat1.format(date1));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
     @BindingAdapter("date2")
     public static void date2(TextView view, String date) {
         if (date!=null&&!date.isEmpty()){

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ import com.clinc.share.Common;
 import com.clinc.tags.Tags;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -125,9 +127,10 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i>0){
-               update(i);
-            }}
+                if (i > 0) {
+                    update(i);
+                }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -138,17 +141,17 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     }
 
     private void update(int i) {
-       UserModel  userModel = countryModelList.get(i);
+        UserModel userModel = countryModelList.get(i);
         userModel.setUser_name(this.userModel.getUser_name());
         userModel.setPass(this.userModel.getPass());
-        this.userModel=userModel;
+        this.userModel = userModel;
         binding.setModel(userModel);
         preferences.create_update_userdata(TimesActivity.this, userModel);
         preferences.create_update_session(TimesActivity.this, Tags.session_login);
     }
 
     public void CreateDateAlertDialogs(Context context) {
-         dialog = new AlertDialog.Builder(context)
+        dialog = new AlertDialog.Builder(context)
                 .create();
 
         DialogDateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_date, null, false);
@@ -171,7 +174,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
         }
     }
-  
+
     private void getDate(String date) {
         timeModels.clear();
         timeAdapter.notifyDataSetChanged();
@@ -243,19 +246,62 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
 
     public void book(TimeModel timeModel) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+        String time="";
+        try {
+            Date date1=dateFormat.parse(timeModel.getTime_name());
+            //view.setText(dateFormat1.format(date1));
+            time=dateFormat1.format(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("هل تريد حجز موعد "+"  " + date +"   "+ "الساعه  " +"  "+time);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "نعم",
+
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                        book2(timeModel);
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "لا",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_primary));
+        alert11.getButton(1).setTextColor(getResources().getColor(R.color.white));
+        alert11.getButton(2).setTextColor(getResources().getColor(R.color.white));
+
+        alert11.show();
+
+    }
+
+    private void book2(TimeModel timeModel) {
         final Dialog dialog = Common.createProgressDialog(TimesActivity.this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
 
         try {
             Api.getService(Tags.base_url)
-                    .book(userModel.getId()+"", userModel.getUser_name() + "", userModel.getPass(), timeModel.getTime_name(), date).enqueue(new Callback<ResponseBody>() {
+                    .book(userModel.getId() + "", userModel.getUser_name() + "", userModel.getPass(), timeModel.getTime_name(), date).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     dialog.dismiss();
                     if (response.isSuccessful()) {
-
-                        finish();
+                        Toast.makeText(TimesActivity.this, "تم بنجاح", Toast.LENGTH_LONG).show();
+                        getDate(date);
                     } else {
                         try {
 
@@ -344,19 +390,19 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     }
 
     private void update(List<UserModel> body) {
-      countryModelList.clear();
-      countryModelList.add(new UserModel(""));
-      countryModelList.addAll(body);
-      spinnerAdapter.notifyDataSetChanged();
-      binding.spinner.setAdapter(spinnerAdapter);
+        countryModelList.clear();
+        countryModelList.add(new UserModel(""));
+        countryModelList.addAll(body);
+        spinnerAdapter.notifyDataSetChanged();
+        binding.spinner.setAdapter(spinnerAdapter);
         // navigateToHomeActivity();
     }
 
     public void setdate(String s) {
-        if(dialog!=null){
+        if (dialog != null) {
             dialog.dismiss();
         }
-        date=s;
+        date = s;
         getDate(date);
     }
 }
