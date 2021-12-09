@@ -31,6 +31,7 @@ import com.clinc.databinding.DialogDateBinding;
 import com.clinc.databinding.DialogLoginBinding;
 import com.clinc.interfaces.Listeners;
 import com.clinc.language.Language;
+import com.clinc.models.ReservisionModel;
 import com.clinc.models.SystemModel;
 import com.clinc.models.TimeModel;
 import com.clinc.models.UserModel;
@@ -68,6 +69,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     private SpinnerAdapter spinnerAdapter;
     private List<UserModel> countryModelList;
     private AlertDialog dialog;
+    private List<ReservisionModel> reservisionModelList;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -87,7 +89,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
     private void initView() {
         countryModelList = new ArrayList<>();
-
+        reservisionModelList = new ArrayList<>();
         datelist = new ArrayList<>();
         timeModels = new ArrayList<>();
         adapter = new DateAdapter(this, datelist);
@@ -137,7 +139,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
             }
         });
-
+        getData();
     }
 
     private void update(int i) {
@@ -206,6 +208,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
                                     binding.tvNoData.setVisibility(View.VISIBLE);
 
                                 }
+                                getData();
                             } else {
                                 timeAdapter.notifyDataSetChanged();
 
@@ -246,18 +249,51 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
 
     public void book(TimeModel timeModel) {
+        int pos = -1;
+        if (reservisionModelList.size() == 0) {
+            createdialog(timeModel);
+        } else {
+            for (int i = 0; i < reservisionModelList.size(); i++) {
+                if (reservisionModelList.get(i).getPatient_id().equals(userModel.getId() + "")) {
+                    pos = i;
+                    break;
+                }
+            }
+            if (pos == -1) {
+                createdialog(timeModel);
+            } else {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setMessage("لديك حجز بالفعل ");
+                builder1.setCancelable(true);
+                builder1.setNegativeButton(
+                        "اوك",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+                AlertDialog alert11 = builder1.create();
+
+                alert11.show();
+            }
+        }
+    }
+
+    private void createdialog(TimeModel timeModel) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH);
         SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
-        String time="";
+        String time = "";
         try {
-            Date date1=dateFormat.parse(timeModel.getTime_name());
+            Date date1 = dateFormat.parse(timeModel.getTime_name());
             //view.setText(dateFormat1.format(date1));
-            time=dateFormat1.format(date1);
+            time = dateFormat1.format(date1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("هل تريد حجز موعد "+"  " + date +"   "+ "الساعه  " +"  "+time);
+        builder1.setMessage("هل تريد حجز موعد " + "  " + date + "   " + "الساعه  " + "  " + time);
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
@@ -396,6 +432,60 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
         spinnerAdapter.notifyDataSetChanged();
         binding.spinner.setAdapter(spinnerAdapter);
         // navigateToHomeActivity();
+    }
+
+    private void getData() {
+        reservisionModelList.clear();
+
+
+        try {
+
+
+            Api.getService(Tags.base_url)
+                    .getReserv(userModel.getUser_name(), userModel.getPass())
+                    .enqueue(new Callback<List<ReservisionModel>>() {
+                        @Override
+                        public void onResponse(Call<List<ReservisionModel>> call, Response<List<ReservisionModel>> response) {
+
+                            if (response.isSuccessful() && response.body() != null) {
+                                reservisionModelList.clear();
+                                reservisionModelList.addAll(response.body());
+                                if (response.body().size() > 0) {
+                                    // rec_sent.setVisibility(View.VISIBLE);
+                                    //  Log.e("data",response.body().getData().get(0).getAr_title());
+
+
+                                    //   total_page = response.body().getMeta().getLast_page();
+
+                                } else {
+
+
+                                }
+                            } else {
+
+
+                                //Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                try {
+                                    Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<ReservisionModel>> call, Throwable t) {
+                            try {
+
+
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+
+
+        }
     }
 
     public void setdate(String s) {

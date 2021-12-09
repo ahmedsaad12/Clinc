@@ -4,6 +4,7 @@ package com.clinc.services;
 import com.clinc.models.InstructionsModel;
 import com.clinc.models.MessageModel;
 import com.clinc.models.ProfileModel;
+import com.clinc.models.ReservisionModel;
 import com.clinc.models.SystemModel;
 import com.clinc.models.TimeModel;
 import com.clinc.models.UserModel;
@@ -90,4 +91,10 @@ public interface Service {
 
 //
             );
+    @GET("/assistant/get_reservation.asmx/get_patient_reservation")
+    Call<List<ReservisionModel>> getReserv(
+            @Query("user_name") String user_name,
+            @Query("pass") String pass
+
+    );
 }

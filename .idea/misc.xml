@@ -11,6 +11,7 @@
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/rounded_red.xml" value="0.1259259259259259" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/rounded_white_strock.xml" value="0.1259259259259259" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout-v21/activity_times.xml" value="0.11666666666666667" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout-v21/reserv_row.xml" value="0.1046875" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/activity_articles.xml" value="0.1" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/activity_chat.xml" value="0.16" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/activity_clinic_system.xml" value="0.2" />
@@ -31,12 +32,6 @@
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/s.xml" value="0.12447916666666667" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/time_row.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/tretment_row.xml" value="0.1296875" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/drawable/ic_logout.xml" value="0.2833333333333333" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/drawable/rounded_red.xml" value="0.2833333333333333" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/layout/activity_home.xml" value="0.24074074074074073" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/layout/activity_profile.xml" value="0.24074074074074073" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/layout/activity_times.xml" value="0.24074074074074073" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/layout/spinner_row.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

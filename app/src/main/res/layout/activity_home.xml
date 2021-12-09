@@ -40,6 +40,7 @@
             android:src="@drawable/ic_logout"
             app:tint="@color/colorred" />
         <FrameLayout
+            android:id="@+id/fl1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -112,6 +113,7 @@
             android:id="@+id/fl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/fl1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -121,7 +123,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp">
-
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:id="@+id/llLocation"
                     android:layout_width="wrap_content"

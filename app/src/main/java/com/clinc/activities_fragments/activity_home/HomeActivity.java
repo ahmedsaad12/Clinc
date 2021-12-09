@@ -44,11 +44,14 @@ import com.clinc.activities_fragments.activity_profile.ProfileActivity;
 import com.clinc.activities_fragments.activity_times.TimesActivity;
 import com.clinc.activities_fragments.chat_activity.ChatActivity;
 import com.clinc.adapters.DateAdapter;
+import com.clinc.adapters.ReservisionAdapter;
 import com.clinc.databinding.ActivityHomeBinding;
 import com.clinc.databinding.DialogDateBinding;
 import com.clinc.databinding.DialogLoginBinding;
 import com.clinc.language.Language;
 
+import com.clinc.models.ReservisionModel;
+import com.clinc.models.ReservisionModel;
 import com.clinc.models.UserModel;
 import com.clinc.preferences.Preferences;
 import com.clinc.remote.Api;
@@ -102,6 +105,9 @@ public class HomeActivity extends AppCompatActivity {
     private AlertDialog dialog;
     Intent intent;
     private static final int REQUEST_PHONE_CALL = 1;
+    private List<ReservisionModel> reservisionModelList;
+    private ReservisionAdapter reservisionAdapter;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -109,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void call(String phone){
+    public void call(String phone) {
 
         intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
 
@@ -155,6 +161,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,12 +173,15 @@ public class HomeActivity extends AppCompatActivity {
 
     @SuppressLint("RestrictedApi")
     private void initView() {
+        reservisionModelList = new ArrayList<>();
         datelist = new ArrayList<>();
         adapter = new DateAdapter(this, datelist);
         calendar = Calendar.getInstance();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
-
+        reservisionAdapter = new ReservisionAdapter(this, reservisionModelList);
+        binding.recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.recView.setAdapter(reservisionAdapter);
 
         binding.imagechat.setOnClickListener(view -> {
             if (userModel != null) {
@@ -195,8 +205,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 preferences.clear(HomeActivity.this);
-                userModel=preferences.getUserData(HomeActivity.this);
-                Toast.makeText(HomeActivity.this,"تم تسجيل الخروج",Toast.LENGTH_LONG).show();
+                userModel = preferences.getUserData(HomeActivity.this);
+                Toast.makeText(HomeActivity.this, "تم تسجيل الخروج", Toast.LENGTH_LONG).show();
             }
         });
         binding.imageInstr.setOnClickListener(view -> {
@@ -228,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.llLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uri = "http://maps.google.com/maps?q=loc:"+" 30.0002997,31.1652372";
+                String uri = "http://maps.google.com/maps?q=loc:" + " 30.0002997,31.1652372";
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 intent.setPackage("com.google.android.apps.maps");
@@ -250,7 +260,67 @@ public class HomeActivity extends AppCompatActivity {
         datelist.add(dateFormat.format(new Date(calendar.getTimeInMillis())));
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         datelist.add(dateFormat.format(new Date(calendar.getTimeInMillis())));
+if(userModel!=null) {
+    getData();
+}
+    }
 
+
+    private void getData() {
+        reservisionModelList.clear();
+        reservisionAdapter.notifyDataSetChanged();
+
+        try {
+
+
+            Api.getService(Tags.base_url)
+                    .getReserv(userModel.getUser_name(),userModel.getPass())
+                    .enqueue(new Callback<List<ReservisionModel>>() {
+                        @Override
+                        public void onResponse(Call<List<ReservisionModel>> call, Response<List<ReservisionModel>> response) {
+                            
+                            if (response.isSuccessful() && response.body() != null) {
+                                reservisionModelList.clear();
+                                reservisionModelList.addAll(response.body());
+                                if (response.body().size() > 0) {
+                                    // rec_sent.setVisibility(View.VISIBLE);
+                                    //  Log.e("data",response.body().getData().get(0).getAr_title());
+
+                                    reservisionAdapter.notifyDataSetChanged();
+                                    //   total_page = response.body().getMeta().getLast_page();
+
+                                } else {
+                                    reservisionAdapter.notifyDataSetChanged();
+
+
+                                }
+                            } else {
+                                reservisionAdapter.notifyDataSetChanged();
+
+
+                                //Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                try {
+                                    Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<ReservisionModel>> call, Throwable t) {
+                            try {
+                                
+
+
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            
+
+        }
     }
 
     public void CreateNoSignAlertDialogs(Context context) {
@@ -301,7 +371,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void CreateDateAlertDialogs(Context context) {
-         dialog = new AlertDialog.Builder(context)
+        dialog = new AlertDialog.Builder(context)
                 .create();
 
         DialogDateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_date, null, false);
@@ -374,32 +444,35 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void update(List<UserModel> body, String name, String pass) {
-        if(body.size()>0){
-        UserModel userModel = body.get(0);
-        userModel.setUser_name(name);
-        userModel.setPass(pass);
-        this.userModel=userModel;
+        if (body.size() > 0) {
+            UserModel userModel = body.get(0);
+            userModel.setUser_name(name);
+            userModel.setPass(pass);
+            this.userModel = userModel;
 
-        preferences.create_update_userdata(HomeActivity.this, userModel);
-        preferences.create_update_session(HomeActivity.this, Tags.session_login);
-        // navigateToHomeActivity();
-    }}
+            preferences.create_update_userdata(HomeActivity.this, userModel);
+            preferences.create_update_session(HomeActivity.this, Tags.session_login);
+            // navigateToHomeActivity();
+            getData();
+        }
+    }
 
 
     public void book(String s) {
-        if(dialog!=null){
+        if (dialog != null) {
             dialog.dismiss();
         }
-        Intent intent=new Intent(HomeActivity.this, TimesActivity.class);
-        intent.putExtra("date",s);
+        Intent intent = new Intent(HomeActivity.this, TimesActivity.class);
+        intent.putExtra("date", s);
         startActivity(intent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(preferences!=null){
-            userModel=preferences.getUserData(this);
+        if (preferences != null) {
+            userModel = preferences.getUserData(this);
+            getData();
         }
     }
 }
