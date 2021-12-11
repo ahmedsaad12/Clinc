@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/dialog_window_bg.xml" value="0.12037037037037036" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/ic_arrow_left.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/ic_arrow_right.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/msg_left_bg.xml" value="0.13645833333333332" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/drawable/msg_right_bg.xml" value="0.13645833333333332" />
@@ -29,6 +30,7 @@
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/dialog_login.xml" value="0.264" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/instruction_row.xml" value="0.12760416666666666" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/notification_row.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/reserv_row.xml" value="0.1046875" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/s.xml" value="0.12447916666666667" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/time_row.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/tretment_row.xml" value="0.1296875" />

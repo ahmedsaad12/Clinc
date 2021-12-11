@@ -316,9 +316,9 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
                 });
 
         AlertDialog alert11 = builder1.create();
-        alert11.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_primary));
-        alert11.getButton(1).setTextColor(getResources().getColor(R.color.white));
-        alert11.getButton(2).setTextColor(getResources().getColor(R.color.white));
+       // alert11.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.rounded_primary));
+      //  alert11.getButton(1).setTextColor(getResources().getColor(R.color.white));
+        //alert11.getButton(2).setTextColor(getResources().getColor(R.color.white));
 
         alert11.show();
 
@@ -435,6 +435,9 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
     }
 
     private void getData() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
         reservisionModelList.clear();
 
 
@@ -446,7 +449,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
                     .enqueue(new Callback<List<ReservisionModel>>() {
                         @Override
                         public void onResponse(Call<List<ReservisionModel>> call, Response<List<ReservisionModel>> response) {
-
+dialog.dismiss();
                             if (response.isSuccessful() && response.body() != null) {
                                 reservisionModelList.clear();
                                 reservisionModelList.addAll(response.body());
@@ -475,6 +478,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
 
                         @Override
                         public void onFailure(Call<List<ReservisionModel>> call, Throwable t) {
+                            dialog.dismiss();
                             try {
 
 
