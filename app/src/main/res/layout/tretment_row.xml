@@ -27,22 +27,23 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/medicament_name"
+                android:layout_weight="1"
+
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+
                 android:text="@{model.treatment}"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
@@ -61,24 +62,24 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/dose"
+                android:layout_weight="1"
 
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@{model.dosage}"
+                android:layout_weight="1"
+
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </LinearLayout>
