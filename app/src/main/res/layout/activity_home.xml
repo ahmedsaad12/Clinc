@@ -27,18 +27,20 @@
             android:src="@drawable/noti_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imLogout"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_gravity="center"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
             android:src="@drawable/ic_logout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/colorred" />
+
         <FrameLayout
             android:id="@+id/fl1"
             android:layout_width="match_parent"
@@ -113,20 +115,22 @@
             android:id="@+id/fl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/fl1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp">
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:id="@+id/llLocation"
                     android:layout_width="wrap_content"
@@ -147,7 +151,8 @@
 
                         android:clickable="false"
                         android:longClickable="false"
-                        android:text="ميدان الحصرى - مول الامريكيه 5 - الدور الثالث بجوارمعمل الحياه"
+                        android:text="271 شارع فيصل الرئيسي التعاون برج الشرطة الدور الاول عمارة البنك العربي الأفريقي
+"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -172,7 +177,7 @@
 
                         android:clickable="false"
                         android:longClickable="false"
-                        android:text="01111148585"
+                        android:text="01226794259"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
                 </LinearLayout>

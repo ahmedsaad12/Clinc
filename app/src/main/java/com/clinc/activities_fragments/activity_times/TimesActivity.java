@@ -109,7 +109,7 @@ public class TimesActivity extends AppCompatActivity implements Listeners.BackLi
                 back();
             }
         });
-        binding.recView.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.recView.setLayoutManager(new GridLayoutManager(this, 4));
         binding.recView.setAdapter(timeAdapter);
         binding.imageeddit.setOnClickListener(view -> {
             CreateDateAlertDialogs(this);

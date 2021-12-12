@@ -34,10 +34,11 @@
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/s.xml" value="0.12447916666666667" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/time_row.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/Clinc/app/src/main/res/layout/tretment_row.xml" value="0.1296875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/Clinc/app/src/main/res/layout/reserv_row.xml" value="0.22870370370370371" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
